@@ -1,26 +1,75 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-primary-500: #4c79ff;
+  --color-primary-300: #93a7ff;
+  --color-primary-100: #e9edff;
+  --color-primary-indigo: #023e99;
+  --color-state-disabled: #969da8;
+  --color-secondary-informative: #2563eb;
+  --color-secondary-negative: #dc2626;
+  --color-secondary-notice: #fbbf24;
+  --color-secondary-positive: #22c55e;
+  --color-secondary-fuchsia: #fd28ec;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f0f2f5;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #ccd0d6;
+  --color-gray-400: #969da8;
+  --color-gray-500: #717887;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #394252;
+  --color-gray-800: #1f2937;
+  --surface-page: #f6f8ff;
+  --surface-panel: #ffffff;
+  --surface-muted: #edf1ff;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --border-strong: #ccd0d6;
+  --border-soft: #e5e7eb;
+  --shadow-soft: 0 24px 70px rgba(15, 29, 73, 0.12);
+  --radius-xl: 32px;
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --space-2: 0.125rem;
+  --space-4: 0.25rem;
+  --space-8: 0.5rem;
+  --space-12: 0.75rem;
+  --space-16: 1rem;
+  --space-20: 1.25rem;
+  --space-24: 1.5rem;
+  --space-32: 2rem;
+  --space-36: 2.25rem;
+  --space-40: 2.5rem;
+  --space-48: 3rem;
+  --space-56: 3.5rem;
+  --space-64: 4rem;
+  --space-72: 4.5rem;
+  --font-size-heading-b: 1.5rem;
+  --line-height-heading-b: 1.875rem;
+  --font-size-heading-s: 1.5rem;
+  --line-height-heading-s: 1.875rem;
+  --font-size-heading-m: 1.5rem;
+  --line-height-heading-m: 1.875rem;
+  --font-size-heading-r: 1.5rem;
+  --line-height-heading-r: 1.875rem;
+  --font-size-title-b: 1.25rem;
+  --line-height-title-b: 1.5rem;
+  --font-size-title-s: 1.25rem;
+  --line-height-title-s: 1.5rem;
+  --font-size-title-m: 1.25rem;
+  --line-height-title-m: 1.5rem;
+  --font-size-body-l: 1rem;
+  --line-height-body-l: 1.5rem;
+  --font-size-body-m: 0.9375rem;
+  --line-height-body-m: 1.5rem;
+  --font-size-body-s: 0.875rem;
+  --line-height-body-s: 1.4rem;
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-primary);
+  line-height: var(--line-height-body-l);
+  letter-spacing: 0;
 }
