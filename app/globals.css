@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
-:root {
+@theme {
   --color-primary-500: #4c79ff;
+  --color-primary-500-10: rgb(from var(--color-primary-500) r g b / 0.1);
+  --color-primary-500-30: rgb(from var(--color-primary-500) r g b / 0.3);
   --color-primary-300: #93a7ff;
   --color-primary-100: #e9edff;
   --color-primary-indigo: #023e99;
@@ -59,17 +61,225 @@
   --line-height-title-s: 1.5rem;
   --font-size-title-m: 1.25rem;
   --line-height-title-m: 1.5rem;
-  --font-size-body-l: 1rem;
-  --line-height-body-l: 1.5rem;
-  --font-size-body-m: 0.9375rem;
-  --line-height-body-m: 1.5rem;
-  --font-size-body-s: 0.875rem;
-  --line-height-body-s: 1.4rem;
-  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-size-title-r: 1.25rem;
+  --line-height-title-r: 1.5rem;
+  --font-size-sub-title-b: 1.125rem;
+  --line-height-sub-title-b: 1.375rem;
+  --font-size-sub-title-s: 1.125rem;
+  --line-height-sub-title-s: 1.375rem;
+  --font-size-sub-title-m: 1.125rem;
+  --line-height-sub-title-m: 1.375rem;
+  --font-size-sub-title-r: 1.125rem;
+  --line-height-sub-title-r: 1.375rem;
+  --font-size-body-b: 1rem;
+  --line-height-body-b: 1.25rem;
+  --font-size-body-s: 1rem;
+  --line-height-body-s: 1.25rem;
+  --font-size-body-m: 1rem;
+  --line-height-body-m: 1.25rem;
+  --font-size-body-r: 1rem;
+  --line-height-body-r: 1.25rem;
+  --font-size-body-small-b: 0.875rem;
+  --line-height-body-small-b: 1.125rem;
+  --font-size-body-small-s: 0.875rem;
+  --line-height-body-small-s: 1.125rem;
+  --font-size-body-small-m: 0.875rem;
+  --line-height-body-small-m: 1.125rem;
+  --font-size-body-small-r: 0.875rem;
+  --line-height-body-small-r: 1.125rem;
+  --font-size-caption-b: 0.75rem;
+  --line-height-caption-b: 1rem;
+  --font-size-caption-s: 0.75rem;
+  --line-height-caption-s: 1rem;
+  --font-size-caption-m: 0.75rem;
+  --line-height-caption-m: 1rem;
+  --font-size-caption-r: 0.75rem;
+  --line-height-caption-r: 1rem;
+  --font-size-label-b: 0.625rem;
+  --line-height-label-b: 0.75rem;
+  --font-size-label-s: 0.625rem;
+  --line-height-label-s: 0.75rem;
+  --font-size-label-m: 0.625rem;
+  --line-height-label-m: 0.75rem;
+  --font-size-label-r: 0.625rem;
+  --line-height-label-r: 0.75rem;
 }
 
-body {
-  color: var(--text-primary);
-  line-height: var(--line-height-body-l);
-  letter-spacing: 0;
+/** heading b-s-m-r */
+@utility text-heading-b {
+  font-size: var(--font-size-heading-b);
+  line-height: var(--line-height-heading-b);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+@utility text-heading-s {
+  font-size: var(--font-size-heading-s);
+  line-height: var(--line-height-heading-s);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+@utility text-heading-m {
+  font-size: var(--font-size-heading-m);
+  line-height: var(--line-height-heading-m);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+@utility text-heading-r {
+  font-size: var(--font-size-heading-r);
+  line-height: var(--line-height-heading-r);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/** title b-s-m-r */
+@utility text-title-b {
+  font-size: var(--font-size-title-b);
+  line-height: var(--line-height-title-b);
+  font-weight: 700;
+}
+
+@utility text-title-s {
+  font-size: var(--font-size-title-s);
+  line-height: var(--line-height-title-s);
+  font-weight: 600;
+}
+
+@utility text-title-m {
+  font-size: var(--font-size-title-m);
+  line-height: var(--line-height-title-m);
+  font-weight: 500;
+}
+
+@utility text-title-r {
+  font-size: var(--font-size-title-r);
+  line-height: var(--line-height-title-r);
+  font-weight: 400;
+}
+
+/** subtitle b-m-s-r */
+@utility text-sub-title-b {
+  font-size: var(--font-size-sub-title-b);
+  line-height: var(--line-height-sub-title-b);
+  font-weight: 700;
+}
+
+@utility text-sub-title-s {
+  font-size: var(--font-size-sub-title-s);
+  line-height: var(--line-height-sub-title-s);
+  font-weight: 600;
+}
+
+@utility text-sub-title-m {
+  font-size: var(--font-size-sub-title-m);
+  line-height: var(--line-height-sub-title-m);
+  font-weight: 500;
+}
+
+@utility text-sub-title-r {
+  font-size: var(--font-size-sub-title-r);
+  line-height: var(--line-height-sub-title-r);
+  font-weight: 400;
+}
+
+/** body b-s-m-r */
+@utility text-body-b {
+  font-size: var(--font-size-body-b);
+  line-height: var(--line-height-body-b);
+  font-weight: 700;
+}
+
+@utility text-body-s {
+  font-size: var(--font-size-body-s);
+  line-height: var(--line-height-body-s);
+  font-weight: 600;
+}
+
+@utility text-body-m {
+  font-size: var(--font-size-body-m);
+  line-height: var(--line-height-body-m);
+  font-weight: 500;
+}
+
+@utility text-body-r {
+  font-size: var(--font-size-body-r);
+  line-height: var(--line-height-body-r);
+  font-weight: 400;
+}
+
+/** body small b-s-m-r */
+@utility text-body-small-b {
+  font-size: var(--font-size-body-small-b);
+  line-height: var(--line-height-body-small-b);
+  font-weight: 700;
+}
+
+@utility text-body-small-s {
+  font-size: var(--font-size-body-small-s);
+  line-height: var(--line-height-body-small-s);
+  font-weight: 600;
+}
+
+@utility text-body-small-m {
+  font-size: var(--font-size-body-small-m);
+  line-height: var(--line-height-body-small-m);
+  font-weight: 500;
+}
+
+@utility text-body-small-r {
+  font-size: var(--font-size-body-small-r);
+  line-height: var(--line-height-body-small-r);
+  font-weight: 400;
+}
+
+/** caption b-s-m-r */
+@utility text-caption-b {
+  font-size: var(--font-size-caption-b);
+  line-height: var(--line-height-caption-b);
+  font-weight: 700;
+}
+
+@utility text-caption-s {
+  font-size: var(--font-size-caption-s);
+  line-height: var(--line-height-caption-s);
+  font-weight: 600;
+}
+
+@utility text-caption-m {
+  font-size: var(--font-size-caption-m);
+  line-height: var(--line-height-caption-m);
+  font-weight: 500;
+}
+
+@utility text-caption-r {
+  font-size: var(--font-size-caption-r);
+  line-height: var(--line-height-caption-r);
+  font-weight: 400;
+}
+
+/** label b-s-m-r */
+@utility text-label-b {
+  font-size: var(--font-size-label-b);
+  line-height: var(--line-height-label-b);
+  font-weight: 700;
+}
+
+@utility text-label-s {
+  font-size: var(--font-size-label-s);
+  line-height: var(--line-height-label-s);
+  font-weight: 600;
+}
+
+@utility text-label-m {
+  font-size: var(--font-size-label-m);
+  line-height: var(--line-height-label-m);
+  font-weight: 500;
+}
+
+@utility text-label-r {
+  font-size: var(--font-size-label-r);
+  line-height: var(--line-height-label-r);
+  font-weight: 400;
 }

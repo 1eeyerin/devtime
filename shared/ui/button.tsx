@@ -3,32 +3,33 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils/cn";
 
-const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium tracking-tight transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ring-offset-white disabled:pointer-events-none disabled:opacity-50",
-  {
-    variants: {
-      variant: {
-        default:
-          "bg-gray-900 text-white hover:bg-gray-800 focus-visible:ring-gray-900/20",
-        secondary:
-          "bg-gray-100 text-gray-900 hover:bg-gray-200 focus-visible:ring-gray-400/30",
-        outline:
-          "border border-gray-200 bg-white text-gray-900 hover:bg-gray-50 focus-visible:ring-gray-400/30",
-        ghost: "text-gray-700 hover:bg-gray-100 focus-visible:ring-gray-400/30",
-      },
-      size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-6",
-        icon: "h-10 w-10",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
+const commonStyle = cn(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[5px] border border-transparent text-sub-title-s tracking-tight transition ring-offset-white",
+  "cursor-pointer disabled:pointer-events-none",
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#FF47FF]",
+  "hover:shadow-[inset_0_0_0_999px_rgba(0,0,0,0.1)]",
+  "active:shadow-[inset_0_0_0_999px_rgba(0,0,0,0.1)]"
 );
+
+const buttonVariants = cva(commonStyle, {
+  variants: {
+    priority: {
+      primary:
+        "bg-primary-500 text-white disabled:bg-gray-400 disabled:text-gray-300",
+      secondary:
+        "bg-primary-500-10 text-primary-500 disabled:bg-gray-200 disabled:text-gray-400",
+      tertiary:
+        "bg-gray-50 text-primary-500 disabled:bg-gray-200 disabled:text-gray-400",
+    },
+    size: {
+      default: "h-12 px-4",
+    },
+  },
+  defaultVariants: {
+    priority: "primary",
+    size: "default",
+  },
+});
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants> & {
@@ -36,12 +37,12 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, priority, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
         ref={ref}
-        className={cn(buttonVariants({ variant, size }), className)}
+        className={cn(buttonVariants({ priority, size }), className)}
         {...props}
       />
     );

@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "zeplin-connect": "zeplin connect",
+    "zeplin-connect-dev-mode": "zeplin connect --dev"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -24,6 +26,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@zeplin/cli": "^2.1.1",
+    "@zeplin/cli-connect-react-plugin": "^1.1.2",
     "eslint": "^9",
     "eslint-config-next": "16.0.2",
     "shadcn": "^3.5.0",

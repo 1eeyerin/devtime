@@ -73,14 +73,9 @@ export const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   FormLabelProps
 >(({ className, ...props }, ref) => {
-  const { error, formItemId } = useFormField();
+  const { formItemId } = useFormField();
   return (
-    <Label
-      ref={ref}
-      className={cn(error && "text-red-500", className)}
-      htmlFor={formItemId}
-      {...props}
-    />
+    <Label ref={ref} className={className} htmlFor={formItemId} {...props} />
   );
 });
 FormLabel.displayName = "FormLabel";
@@ -91,8 +86,20 @@ export const FormControl = React.forwardRef<
   React.ElementRef<typeof Slot>,
   FormControlProps
 >(({ ...props }, ref) => {
-  const { formItemId } = useFormField();
-  return <Slot ref={ref} id={formItemId} {...props} />;
+  const { formItemId, descriptionId, formMessageId, error } = useFormField();
+  const describedBy = error
+    ? [formMessageId, descriptionId].filter(Boolean).join(" ")
+    : descriptionId;
+
+  return (
+    <Slot
+      ref={ref}
+      id={formItemId}
+      aria-invalid={!!error}
+      aria-describedby={describedBy}
+      {...props}
+    />
+  );
 });
 FormControl.displayName = "FormControl";
 
@@ -123,6 +130,7 @@ export const FormMessage = React.forwardRef<
   const { error, formMessageId } = useFormField();
   const body = error ? String(error.message) : children;
   if (!body) return null;
+
   return (
     <p
       ref={ref}
