@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import Link from "next/link";
+import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -15,6 +16,14 @@ import {
 import { Input } from "@/shared/ui/input";
 import { Button } from "@/shared/ui/button";
 import Logo from "@/shared/ui/logo";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/shared/ui/dialog";
 
 const loginSchema = z.object({
   email: z
@@ -34,6 +43,8 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 const LoginPage = () => {
+  const [isDuplicateLoginOpen, setIsDuplicateLoginOpen] = useState(false);
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -49,6 +60,11 @@ const LoginPage = () => {
 
   const handleSubmit = (values: LoginFormValues) => {
     console.log(values);
+    setIsDuplicateLoginOpen(true);
+  };
+
+  const handleConfirmDuplicateLogin = () => {
+    setIsDuplicateLoginOpen(false);
   };
 
   const isSubmitDisabled = !email || !password;
@@ -117,6 +133,26 @@ const LoginPage = () => {
           </Link>
         </div>
       </div>
+      <Dialog
+        open={isDuplicateLoginOpen}
+        onOpenChange={setIsDuplicateLoginOpen}
+      >
+        <DialogContent className="w-[328px]! p-6">
+          <DialogHeader className="space-y-0">
+            <DialogTitle className="mb-4">
+              중복 로그인이 불가능합니다.
+            </DialogTitle>
+            <DialogDescription className="break-keep">
+              다른 기기에 중복 로그인 된 상태입니다. [확인] 버튼을 누르면 다른
+              기기에서 강제 로그아웃되며, 진행중이던 타이머가 있다면 기록이 자동
+              삭제됩니다.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex justify-end">
+            <Button onClick={handleConfirmDuplicateLogin}>확인</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
