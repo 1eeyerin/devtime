@@ -3,6 +3,7 @@
 import { z } from "zod";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -43,7 +44,10 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 const LoginPage = () => {
+  const router = useRouter();
   const [isDuplicateLoginOpen, setIsDuplicateLoginOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -58,16 +62,79 @@ const LoginPage = () => {
     name: ["email", "password"],
   });
 
-  const handleSubmit = (values: LoginFormValues) => {
-    console.log(values);
-    setIsDuplicateLoginOpen(true);
+  const handleSubmit = async (values: LoginFormValues) => {
+    setIsLoading(true);
+    setErrorMessage(null);
+
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: values.email,
+          password: values.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        setErrorMessage(data.message || "로그인에 실패했습니다.");
+        setIsLoading(false);
+        return;
+      }
+
+      if (data.isDuplicateLogin) {
+        setIsDuplicateLoginOpen(true);
+        setIsLoading(false);
+        return;
+      }
+
+      router.push("/");
+      router.refresh();
+    } catch (error) {
+      console.error("Login error:", error);
+      setErrorMessage("로그인 중 오류가 발생했습니다.");
+      setIsLoading(false);
+    }
   };
 
-  const handleConfirmDuplicateLogin = () => {
+  const handleConfirmDuplicateLogin = async () => {
     setIsDuplicateLoginOpen(false);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: form.getValues("email"),
+          password: form.getValues("password"),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        setErrorMessage(data.message || "로그인에 실패했습니다.");
+        setIsLoading(false);
+        return;
+      }
+
+      router.push("/");
+      router.refresh();
+    } catch (error) {
+      console.error("Login error:", error);
+      setErrorMessage("로그인 중 오류가 발생했습니다.");
+      setIsLoading(false);
+    }
   };
 
-  const isSubmitDisabled = !email || !password;
+  const isSubmitDisabled = !email || !password || isLoading;
 
   return (
     <section className="flex min-h-screen items-center justify-center bg-[url('/assets/symbol-lg.svg')] bg-position-[top_5.5%_right] bg-size-[auto_49%] bg-no-repeat">
@@ -116,12 +183,17 @@ const LoginPage = () => {
                   </FormItem>
                 )}
               />
+              {errorMessage && (
+                <div className="text-sm text-red-600 mt-2 mb-2">
+                  {errorMessage}
+                </div>
+              )}
               <Button
                 type="submit"
                 className="w-full mt-6"
                 disabled={isSubmitDisabled}
               >
-                로그인
+                {isLoading ? "로그인 중..." : "로그인"}
               </Button>
             </form>
           </Form>
